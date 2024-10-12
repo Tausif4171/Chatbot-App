@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addResponse } from "../store/historySlice"; // Import correct action
+import { addResponse } from "../store/historySlice";
 import axios from "axios";
 
 const Chatbot = () => {
   const [query, setQuery] = useState("");
   const [response, setResponse] = useState(null);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const handleQueryChange = (e) => {
@@ -14,6 +15,7 @@ const Chatbot = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post("http://localhost:5000/api/chatbot", {
         query,
@@ -21,31 +23,45 @@ const Chatbot = () => {
       setResponse(res.data);
     } catch (error) {
       console.error("Error sending query:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  const handleSaveResponse = () => {
+  const handleSaveResponse = async () => {
     if (response) {
-      dispatch(addResponse(response)); // Dispatch correct action
-      alert("Response saved!");
+      try {
+        // Make an API call to save the response to the database
+        await axios.post("http://localhost:5000/api/chatbot/save", {
+          summary: response.summary,
+          result_text: response.result_text,
+          // Add any other relevant fields
+        });
+        dispatch(addResponse(response));
+        alert("Response saved!");
+      } catch (error) {
+        console.error("Error saving response:", error);
+      }
     }
   };
 
   return (
-    <div className="p-4">
+    <div className="p-4 bg-white shadow-md rounded-md">
       <form onSubmit={handleSubmit} className="mb-4">
         <input
           type="text"
           value={query}
           onChange={handleQueryChange}
-          className="border rounded p-2 w-full"
+          className="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Ask your question..."
+          required
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded mt-2"
+          className="bg-blue-500 text-white p-2 rounded mt-2 w-full hover:bg-blue-600"
+          disabled={loading}
         >
-          Submit
+          {loading ? "Loading..." : "Submit"}
         </button>
       </form>
       {response && (
@@ -55,22 +71,25 @@ const Chatbot = () => {
           <h2 className="font-bold">Result:</h2>
           <p>{response.result_text}</p>
 
-          {/* Conditionally render result_table_path if it exists and is a valid URL */}
           {response.result_table_path && (
-            <img src={response.result_table_path} alt="Result Table" />
+            <img
+              src={response.result_table_path}
+              alt="Result Table"
+              className="my-2 rounded"
+            />
           )}
 
-          {/* Conditionally render result_visualization_path if it exists and is a valid URL */}
           {response.result_visualization_path && (
             <img
               src={response.result_visualization_path}
               alt="Result Visualization"
+              className="my-2 rounded"
             />
           )}
 
           <button
             onClick={handleSaveResponse}
-            className="bg-green-500 text-white p-2 rounded mt-2"
+            className="bg-green-500 text-white p-2 rounded mt-2 hover:bg-green-600"
           >
             Save Response
           </button>

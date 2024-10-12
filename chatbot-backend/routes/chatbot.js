@@ -31,19 +31,12 @@ router.post("/", async (req, res) => {
       result_text: responseMessage,
       result_table_path: "", // Optional
       result_visualization_path: "", // Optional
-      error: "", // No error, so leave this empty
     };
 
-    // Save the response data to MongoDB
-    const savedResponse = await Response.create(responseData);
-
-    // Respond with the saved response, including MongoDB _id
-    res.status(200).json(savedResponse);
+    // Respond with the generated response data
+    res.status(200).json(responseData);
   } catch (error) {
-    // Log the specific error for debugging
     console.error("Error fetching response:", error);
-
-    // Respond with an error status and message
     res.status(500).json({
       summary: "",
       result_text: "",
@@ -51,6 +44,19 @@ router.post("/", async (req, res) => {
       result_visualization_path: "",
       error: "An error occurred while fetching the response.",
     });
+  }
+});
+
+// Route for saving responses to the database
+router.post("/save", async (req, res) => {
+  const { summary, result_text } = req.body;
+
+  try {
+    const savedResponse = await Response.create({ summary, result_text });
+    res.status(200).json(savedResponse);
+  } catch (error) {
+    console.error("Error saving response:", error);
+    res.status(500).json({ error: "Error saving response" });
   }
 });
 
