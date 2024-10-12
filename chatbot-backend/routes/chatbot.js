@@ -65,4 +65,15 @@ router.get("/history", async (req, res) => {
   }
 });
 
+// Route for fetching all saved responses
+router.get("/responses", async (req, res) => {
+  try {
+    const responses = await Response.find().sort({ createdAt: -1 }); // Fetch all responses sorted by date
+    res.json(responses);
+  } catch (error) {
+    console.error("Error fetching responses:", error);
+    res.status(500).json({ error: "Error fetching responses" });
+  }
+});
+
 module.exports = router;

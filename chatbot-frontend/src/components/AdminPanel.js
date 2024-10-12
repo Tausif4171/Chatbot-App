@@ -9,7 +9,7 @@ const AdminPanel = () => {
       try {
         const res = await axios.get(
           "http://localhost:5000/api/chatbot/responses"
-        ); // Create an endpoint to fetch responses
+        );
         setResponses(res.data);
       } catch (error) {
         console.error("Error fetching responses:", error);
@@ -25,6 +25,9 @@ const AdminPanel = () => {
       <ul>
         {responses.map((response, index) => (
           <li key={index} className="border-b py-2">
+            <p>
+              <strong>User ID:</strong> {response.userId}
+            </p>
             <p>
               <strong>Summary:</strong> {response.summary}
             </p>
