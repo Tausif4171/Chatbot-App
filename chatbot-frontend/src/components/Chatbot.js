@@ -52,13 +52,13 @@ const Chatbot = () => {
           type="text"
           value={query}
           onChange={handleQueryChange}
-          className="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="border rounded p-2 w-full focus:outline-none focus:ring-2 focus:ring-green-500"
           placeholder="Ask your question..."
           required
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded mt-2 w-full hover:bg-blue-600"
+          className="bg-green-500 text-white p-2 rounded mt-2 w-full hover:bg-green-600"
           disabled={loading}
         >
           {loading ? "Loading..." : "Submit"}
