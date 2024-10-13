@@ -11,9 +11,10 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 // Middleware
+// Middleware for CORS
 app.use(
   cors({
-    origin: "https://chatbot-app-4171.vercel.app", // Correct URL without trailing slash
+    origin: "*", // Allow access from any origin
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true, // Include cookies with requests
   })
