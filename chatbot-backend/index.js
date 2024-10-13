@@ -33,6 +33,10 @@ mongoose
 // Routes
 app.use("/api/chatbot", chatbotRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the Chatbot API!"); // You can customize this message
+});
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
