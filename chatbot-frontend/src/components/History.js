@@ -9,7 +9,7 @@ const History = () => {
     const fetchUserResponses = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/api/chatbot/history"
+          "https://chatbot-app-backend-4171.vercel.app/api/chatbot/history"
         );
         setResponses(res.data);
       } catch (error) {

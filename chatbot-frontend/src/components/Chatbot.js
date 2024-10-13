@@ -17,9 +17,12 @@ const Chatbot = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/chatbot", {
-        query,
-      });
+      const res = await axios.post(
+        "https://chatbot-app-backend-4171.vercel.app/api/chatbot",
+        {
+          query,
+        }
+      );
       setResponse(res.data);
     } catch (error) {
       console.error("Error sending query:", error);
@@ -32,11 +35,14 @@ const Chatbot = () => {
     if (response) {
       try {
         // Make an API call to save the response to the database
-        await axios.post("http://localhost:5000/api/chatbot/save", {
-          summary: response.summary,
-          result_text: response.result_text,
-          // Add any other relevant fields
-        });
+        await axios.post(
+          "https://chatbot-app-backend-4171.vercel.app/api/chatbot/save",
+          {
+            summary: response.summary,
+            result_text: response.result_text,
+            // Add any other relevant fields
+          }
+        );
         dispatch(addResponse(response));
         alert("Response saved!");
       } catch (error) {
