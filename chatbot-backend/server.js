@@ -13,7 +13,9 @@ const port = process.env.PORT || 5000;
 // Middleware
 app.use(
   cors({
-    origin: "https://chatbot-app-4171.vercel.app", // Removed the trailing slash
+    origin: "https://chatbot-app-4171.vercel.app", // Correct URL without trailing slash
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true, // Include cookies with requests
   })
 );
 app.use(bodyParser.json());

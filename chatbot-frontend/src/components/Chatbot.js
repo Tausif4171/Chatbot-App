@@ -19,9 +19,7 @@ const Chatbot = () => {
     try {
       const res = await axios.post(
         "https://chatbot-app-backend-4171.vercel.app/api/chatbot",
-        {
-          query,
-        }
+        { query }
       );
       setResponse(res.data);
     } catch (error) {
