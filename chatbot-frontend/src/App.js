@@ -17,6 +17,16 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <div className="min-h-screen bg-gradient-to-r from-green-200 to-green-500 flex flex-col items-center justify-center px-6 py-12">
+          {/* Main Heading */}
+          <h1 className="text-4xl font-bold text-white mb-4">
+            Welcome to the Chatbot Application
+          </h1>
+
+          {/* Additional Text with Emoji */}
+          <p className="text-lg text-white mb-9 text-center">
+            Chat with our AI to get answers quickly and easily! 💬 🤖
+          </p>
+
           <nav className="bg-white shadow-lg rounded-md p-4 mb-4 w-full max-w-4xl">
             <ul className="flex justify-around">
               <li>

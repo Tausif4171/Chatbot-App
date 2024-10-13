@@ -2,28 +2,35 @@ const express = require("express");
 const axios = require("axios");
 const Response = require("../models/Response");
 
+const Groq = require("groq-sdk");
+
+const groq = new Groq({
+  apiKey:
+    process.env.GROQ_API_KEY ||
+    "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",
+});
+
 const router = express.Router();
-const HUGGING_FACE_API_KEY = "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"; // Your Hugging Face API Key
 
 // Route for handling chatbot queries
 router.post("/", async (req, res) => {
   const { query } = req.body;
 
   try {
-    // Request to Hugging Face API
-    const response = await axios.post(
-      "https://api-inference.huggingface.co/models/gpt2", // Use a specific model endpoint
-      { inputs: query },
-      {
-        headers: {
-          Authorization: `Bearer ${HUGGING_FACE_API_KEY}`, // Add your API key here
+    // Request to Groq API for chat completions
+    const response = await groq.chat.completions.create({
+      messages: [
+        {
+          role: "user",
+          content: query,
         },
-      }
-    );
+      ],
+      model: "llama3-8b-8192",
+    });
 
     // Extract the generated text from the response
     const responseMessage =
-      response.data[0]?.generated_text || "No response generated.";
+      response.choices[0]?.message?.content || "No response generated.";
 
     // Construct response data object
     const responseData = {
@@ -36,13 +43,13 @@ router.post("/", async (req, res) => {
     // Respond with the generated response data
     res.status(200).json(responseData);
   } catch (error) {
-    console.error("Error fetching response:", error);
+    console.error("Error fetching response from Groq:", error);
     res.status(500).json({
       summary: "",
       result_text: "",
       result_table_path: "",
       result_visualization_path: "",
-      error: "An error occurred while fetching the response.",
+      error: "An error occurred while fetching the response from Groq.",
     });
   }
 });
