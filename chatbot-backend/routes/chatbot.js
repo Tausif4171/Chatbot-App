@@ -36,8 +36,8 @@ router.post("/", async (req, res) => {
     const responseData = {
       summary: "Chatbot Response",
       result_text: responseMessage,
-      result_table_path: "", // Optional
-      result_visualization_path: "", // Optional
+      result_table_path: "",
+      result_visualization_path: "",
     };
 
     // Respond with the generated response data
