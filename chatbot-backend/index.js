@@ -22,11 +22,13 @@ const groq = new Groq({
 // Middleware
 app.use(
   cors({
-    origin: "*", // Allow access from any origin
+    origin: "*",
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials: true, // Include cookies with requests
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
+
 app.use(bodyParser.json());
 
 // MongoDB Connection
