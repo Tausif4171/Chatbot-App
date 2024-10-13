@@ -17,10 +17,9 @@ const Chatbot = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post(
-        "https://chatbot-app-backend-4171.vercel.app/api/chatbot",
-        { query }
-      );
+      const res = await axios.post("http://localhost:5000/api/chatbot", {
+        query,
+      });
       setResponse(res.data);
     } catch (error) {
       console.error("Error sending query:", error);
