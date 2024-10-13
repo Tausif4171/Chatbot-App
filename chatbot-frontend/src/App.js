@@ -18,7 +18,7 @@ const App = () => {
       <Router>
         <div className="min-h-screen bg-gradient-to-r from-green-200 to-green-500 flex flex-col items-center justify-center px-6 py-12">
           {/* Main Heading */}
-          <h1 className="text-4xl font-bold text-white mb-4">
+          <h1 className="text-4xl font-bold text-white mb-4 text-center">
             Welcome to the Chatbot Application
           </h1>
 
