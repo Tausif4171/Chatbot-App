@@ -9,7 +9,7 @@ const AdminPanel = () => {
     const fetchResponses = async () => {
       try {
         const res = await axios.get(
-          "https://chatbot-app-backend-4171.vercel.app/api/chatbot/responses"
+          "http://localhost:5000/api/chatbot/responses"
         );
         setResponses(res.data);
       } catch (error) {

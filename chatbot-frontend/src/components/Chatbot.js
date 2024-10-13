@@ -33,10 +33,10 @@ const Chatbot = () => {
     if (response) {
       try {
         // Make an API call to save the response to the database
-        await axios.post(
-          "https://chatbot-app-backend-4171.vercel.app/api/chatbot/save",
-          { summary: response.summary, result_text: response.result_text }
-        );
+        await axios.post("http://localhost:5000/api/chatbot/save", {
+          summary: response.summary,
+          result_text: response.result_text,
+        });
         dispatch(addResponse(response));
         alert("Response saved!");
       } catch (error) {
