@@ -12,7 +12,6 @@ const groq = new Groq({
 
 const router = express.Router();
 
-// Route for handling chatbot queries
 router.post("/", async (req, res) => {
   const { query } = req.body;
 
@@ -54,7 +53,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Route for saving responses to the database
 router.post("/save", async (req, res) => {
   const { summary, result_text } = req.body;
 
@@ -67,10 +65,9 @@ router.post("/save", async (req, res) => {
   }
 });
 
-// Route for fetching all saved responses (for History tab)
 router.get("/history", async (req, res) => {
   try {
-    const responses = await Response.find().sort({ createdAt: -1 }); // Fetch all responses sorted by date
+    const responses = await Response.find().sort({ createdAt: -1 });
     res.json(responses);
   } catch (error) {
     console.error("Error fetching history:", error);
@@ -78,10 +75,9 @@ router.get("/history", async (req, res) => {
   }
 });
 
-// Route for fetching all saved responses
 router.get("/responses", async (req, res) => {
   try {
-    const responses = await Response.find().sort({ createdAt: -1 }); // Fetch all responses sorted by date
+    const responses = await Response.find().sort({ createdAt: -1 });
     res.json(responses);
   } catch (error) {
     console.error("Error fetching responses:", error);

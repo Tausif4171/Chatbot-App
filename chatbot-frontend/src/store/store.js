@@ -1,4 +1,3 @@
-// src/store/store.js
 import { configureStore } from "@reduxjs/toolkit";
 import responseReducer from "./responseSlice";
 import historyReducer from "./historySlice";

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addResponse } from "../store/historySlice";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Chatbot = () => {
   const [query, setQuery] = useState("");
@@ -23,6 +25,7 @@ const Chatbot = () => {
       setResponse(res.data);
     } catch (error) {
       console.error("Error sending query:", error);
+      toast.error("Error fetching the response.");
     } finally {
       setLoading(false);
     }
@@ -31,15 +34,18 @@ const Chatbot = () => {
   const handleSaveResponse = async () => {
     if (response) {
       try {
-        // Make an API call to save the response to the database
         await axios.post("http://localhost:5000/api/chatbot/save", {
           summary: response.summary,
           result_text: response.result_text,
         });
         dispatch(addResponse(response));
-        alert("Response saved!");
+        toast.success("Response saved successfully!", {
+          autoClose: 3000,
+          closeOnClick: true,
+        });
       } catch (error) {
         console.error("Error saving response:", error);
+        toast.error("Error saving the response.");
       }
     }
   };
@@ -94,6 +100,8 @@ const Chatbot = () => {
           </button>
         </div>
       )}
+
+      <ToastContainer />
     </div>
   );
 };
