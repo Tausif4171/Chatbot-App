@@ -19,9 +19,12 @@ const Chatbot = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:5000/api/chatbot", {
-        query,
-      });
+      const res = await axios.post(
+        "https://chatbot-backend4171.vercel.app/api/chatbot",
+        {
+          query,
+        }
+      );
       setResponse(res.data);
     } catch (error) {
       console.error("Error sending query:", error);
@@ -34,10 +37,13 @@ const Chatbot = () => {
   const handleSaveResponse = async () => {
     if (response) {
       try {
-        await axios.post("http://localhost:5000/api/chatbot/save", {
-          summary: response.summary,
-          result_text: response.result_text,
-        });
+        await axios.post(
+          "https://chatbot-backend4171.vercel.app/api/chatbot/save",
+          {
+            summary: response.summary,
+            result_text: response.result_text,
+          }
+        );
         dispatch(addResponse(response));
         toast.success("Response saved successfully!", {
           autoClose: 3000,
