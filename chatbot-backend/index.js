@@ -29,6 +29,10 @@ mongoose
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log("MongoDB connection error:", err)); // Improved error logging
 
+app.get("/", (req, res) => {
+  res.send("API is running!");
+});
+
 // Routes
 app.use("/api/chatbot", chatbotRoutes);
 
