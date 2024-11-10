@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
-const chatbotRoutes = require("./api/chatbot");
+const chatbotRoutes = require("./routes/chatbot");
 
 dotenv.config();
 
