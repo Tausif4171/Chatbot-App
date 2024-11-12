@@ -40,7 +40,7 @@ const Chatbot = () => {
         await axios.post(
           "https://chatbot-backend4171.vercel.app/api/chatbot/save",
           {
-            summary: response.summary,
+            input: query,
             result_text: response.result_text,
           }
         );
@@ -77,8 +77,8 @@ const Chatbot = () => {
       </form>
       {response && (
         <div className="bg-gray-100 p-4 rounded">
-          <h2 className="font-bold">Summary:</h2>
-          <p>{response.summary}</p>
+          <h2 className="font-bold">Input:</h2>
+          <p>{query}</p>
           <h2 className="font-bold">Result:</h2>
           <p>{response.result_text}</p>
 

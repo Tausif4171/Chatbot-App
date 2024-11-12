@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
 
     // Construct response data object
     const responseData = {
-      summary: "Chatbot Response",
+      input: query,
       result_text: responseMessage,
       result_table_path: "",
       result_visualization_path: "",
@@ -44,7 +44,7 @@ router.post("/", async (req, res) => {
   } catch (error) {
     console.error("Error fetching response from Groq:", error);
     res.status(500).json({
-      summary: "",
+      input: "",
       result_text: "",
       result_table_path: "",
       result_visualization_path: "",
@@ -54,10 +54,12 @@ router.post("/", async (req, res) => {
 });
 
 router.post("/save", async (req, res) => {
-  const { summary, result_text } = req.body;
+  const { input, result_text } = req.body;
+
+  console.log(input, result_text);
 
   try {
-    const savedResponse = await Response.create({ summary, result_text });
+    const savedResponse = await Response.create({ input, result_text });
     res.status(200).json(savedResponse);
   } catch (error) {
     console.error("Error saving response:", error);

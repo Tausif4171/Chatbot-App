@@ -35,7 +35,7 @@ const AdminPanel = () => {
                 <strong>User ID:</strong> {response.userId}
               </p>
               <p>
-                <strong>Summary:</strong> {response.summary}
+                <strong>Input:</strong> {response.input}
               </p>
               <p>
                 <strong>Result:</strong> {response.result_text}
