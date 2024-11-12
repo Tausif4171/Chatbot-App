@@ -36,7 +36,7 @@ const Layout = ({ children }) => {
               <FontAwesomeIcon icon={faHistory} className="mr-1" /> History
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to="/admin"
               className="flex items-center text-green-600 hover:text-green-800 transition-colors duration-300"
@@ -44,7 +44,7 @@ const Layout = ({ children }) => {
               <FontAwesomeIcon icon={faUserShield} className="mr-1" /> Admin
               Panel
             </Link>
-          </li>
+          </li> */}
         </ul>
       </nav>
 

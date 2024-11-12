@@ -41,8 +41,8 @@ const Chatbot = () => {
         await axios.post(
           "https://chatbot-backend4171.vercel.app/api/chatbot/save",
           {
-            input: query,
-            result_text: response.result_text,
+            prompt: query,
+            result: response.result,
           }
         );
         dispatch(addResponse(response));
@@ -58,8 +58,8 @@ const Chatbot = () => {
   };
 
   const handleCopyToClipboard = () => {
-    if (response?.result_text) {
-      navigator.clipboard.writeText(response.result_text).then(() => {
+    if (response?.result) {
+      navigator.clipboard.writeText(response.result).then(() => {
         toast.success("Result copied to clipboard!", {
           autoClose: 2000,
           closeOnClick: true,
@@ -89,8 +89,8 @@ const Chatbot = () => {
       </form>
       {response && (
         <div className="bg-gray-100 p-4 rounded">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="font-bold">Result:</h2>
+          <div className="flex items-center justify-between mb-1">
+            <h2 className="font-bold">Chatbot Response:</h2>
             <button
               onClick={handleCopyToClipboard}
               className="text-gray-500 hover:text-green-500"
@@ -100,7 +100,7 @@ const Chatbot = () => {
             </button>
           </div>
 
-          <p className="mr-2 mb-4">{response.result_text}</p>
+          <p className="mr-2 mb-4">{response.result}</p>
 
           {response.result_table_path && (
             <img

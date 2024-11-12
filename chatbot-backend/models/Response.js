@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
 const responseSchema = new mongoose.Schema({
-  input: { type: String, required: true },
-  result_text: { type: String, required: true },
+  prompt: { type: String, required: true },
+  result: { type: String, required: true },
   result_table_path: { type: String },
   result_visualization_path: { type: String },
   error: { type: String, default: "" },

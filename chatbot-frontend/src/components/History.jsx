@@ -32,10 +32,10 @@ const History = () => {
           {responses.map((response, index) => (
             <li key={index} className="border-b py-2">
               <p>
-                <strong>Input:</strong> {response.input}
+                <strong>Prompt:</strong> {response.prompt}
               </p>
               <p>
-                <strong>Result:</strong> {response.result_text}
+                <strong>Chatbot Response:</strong> {response.result}
               </p>
             </li>
           ))}

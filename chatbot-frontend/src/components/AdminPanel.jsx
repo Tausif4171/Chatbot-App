@@ -35,10 +35,10 @@ const AdminPanel = () => {
                 <strong>User ID:</strong> {response.userId}
               </p>
               <p>
-                <strong>Input:</strong> {response.input}
+                <strong>Prompt:</strong> {response.prompt}
               </p>
               <p>
-                <strong>Result:</strong> {response.result_text}
+                <strong>Chatbot Response:</strong> {response.result}
               </p>
             </li>
           ))}
