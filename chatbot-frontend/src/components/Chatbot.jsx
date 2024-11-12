@@ -4,6 +4,7 @@ import { addResponse } from "../store/historySlice";
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import copyIcon from "../assets/copy.svg";
 
 const Chatbot = () => {
   const [query, setQuery] = useState("");
@@ -56,6 +57,17 @@ const Chatbot = () => {
     }
   };
 
+  const handleCopyToClipboard = () => {
+    if (response?.result_text) {
+      navigator.clipboard.writeText(response.result_text).then(() => {
+        toast.success("Result copied to clipboard!", {
+          autoClose: 2000,
+          closeOnClick: true,
+        });
+      });
+    }
+  };
+
   return (
     <div className="p-4 bg-white shadow-md rounded-md">
       <form onSubmit={handleSubmit} className="mb-4">
@@ -77,10 +89,18 @@ const Chatbot = () => {
       </form>
       {response && (
         <div className="bg-gray-100 p-4 rounded">
-          <h2 className="font-bold">Input:</h2>
-          <p>{query}</p>
-          <h2 className="font-bold">Result:</h2>
-          <p>{response.result_text}</p>
+          <div className="flex items-center justify-between mb-2">
+            <h2 className="font-bold">Result:</h2>
+            <button
+              onClick={handleCopyToClipboard}
+              className="text-gray-500 hover:text-green-500"
+              aria-label="Copy result"
+            >
+              <img src={copyIcon} alt="copy icon" className="w-6 h-6" />
+            </button>
+          </div>
+
+          <p className="mr-2 mb-4">{response.result_text}</p>
 
           {response.result_table_path && (
             <img
@@ -100,7 +120,7 @@ const Chatbot = () => {
 
           <button
             onClick={handleSaveResponse}
-            className="bg-green-500 text-white p-2 rounded mt-2 hover:bg-green-600"
+            className="bg-green-500 text-white p-2 rounded hover:bg-green-600 "
           >
             Save Response
           </button>
